@@ -20,6 +20,13 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>main</groupId>
+            <artifactId>Main</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/Space-Invaders.jar</systemPath>
+        </dependency>
     </dependencies>
 
 </project>
