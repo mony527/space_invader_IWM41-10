@@ -14,4 +14,10 @@ public class ShotTest {
         Shot shot = new Shot(x,y);
         assertNotNull(shot, "Shot should be created succesfully");
     }
+
+    @Test
+    public void testCajaNegraShotCreado2(){
+        Shot shot = new Shot();
+        assertNotNull(shot, "Shot should be created succesfully");
+    }
 }
