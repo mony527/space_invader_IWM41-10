@@ -38,6 +38,11 @@ public class BoardTest {
     } catch (Exception e) {
     }
 }
+
+    @Test
+    public void testCajaNegraJuegoCreado(){
+        Board board = new Board();
+    }
 }
 
 
