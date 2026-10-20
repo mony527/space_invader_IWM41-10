@@ -54,9 +54,9 @@ public class BoardTest {
             for(int j = 0; j < 4; j++) {
                 for (int i = 0; i < 6; i++) {
                     assertEquals(Commons.ALIEN_INIT_X + i * Commons.ALIEN_SEPARATOR, listaAliens.get(k).getX(),
-                            "El alien número: " + k + " no está bien colocado en el eje X");
+                            "El alien número: " + k+1 + " no está bien colocado en el eje X");
                     assertEquals(Commons.ALIEN_INIT_Y + j * Commons.ALIEN_SEPARATOR, listaAliens.get(k).getY(),
-                            "El alien número: " +  k + " no está bien colocado en el eje Y");
+                            "El alien número: " +  k+1 + " no está bien colocado en el eje Y");
                     k++;
                 }
             }
