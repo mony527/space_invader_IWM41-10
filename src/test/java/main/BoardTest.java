@@ -1,14 +1,11 @@
 package main;
 
 import org.junit.jupiter.api.Test;
-<<<<<<< HEAD
 import space_invaders.sprites.Player;
 
 import java.awt.*;
-=======
 import space_invaders.sprites.Alien;
 
->>>>>>> 940507f1627d72ea23f457212b83d81770df4edd
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -65,9 +62,7 @@ public class BoardTest {
         } catch (Exception e) {
         }
     }
-}
-<<<<<<< HEAD
-=======
+
 
     @Test
     public void testCajaNegraJuegoCreado(){
@@ -91,6 +86,6 @@ public class BoardTest {
         }
     }
 }
->>>>>>> 940507f1627d72ea23f457212b83d81770df4edd
+
 
 
