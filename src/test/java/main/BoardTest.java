@@ -140,6 +140,87 @@ public class BoardTest {
        }
 
     }
+
+    @Test
+    public void testUShotsCN1(){
+        try{
+            Board board = new Board();
+            Method metodo = Board.class.getDeclaredMethod("update_shots");
+            metodo.setAccessible(true);
+
+            Field campoDeaths = Board.class.getDeclaredField("deaths");
+            campoDeaths.setAccessible(true);
+
+            //Vaciamos la lista de aliens para comprobar qué ocurre si un shot no toca un alien
+            Field aliens = Board.class.getDeclaredField("aliens");
+            aliens.setAccessible(true);
+            List<Alien> listaAliens =(List<Alien>)  aliens.get(board);
+            listaAliens.clear();
+
+            int preEjec = (int) campoDeaths.get(board);
+            //ejecutamos metodo
+            metodo.invoke(board);
+            //Hay que comprobar que el numero de muertes se mantiene, o sea, no se elimino nigun alien
+            int postEjec = (int) campoDeaths.get(board);
+            assertEquals(preEjec, postEjec, "Se han eliminado aliens aunque no se haya alcanzado ninguno");
+
+        }catch(Exception e){
+            System.out.println("Error al actualizar los aliens");
+        }
+    }
+
+    @Test
+    public void testUShotsCN2(){
+        try{
+            Board board = new Board();
+            Method metodo = Board.class.getDeclaredMethod("update_shots");
+            metodo.setAccessible(true);
+
+            Field campoDeaths = Board.class.getDeclaredField("deaths");
+            campoDeaths.setAccessible(true);
+
+            Field aliens = Board.class.getDeclaredField("aliens");
+            aliens.setAccessible(true);
+            List<Alien> listaAliens =(List<Alien>)  aliens.get(board);
+
+            Field shot = Board.class.getDeclaredField("shot");
+
+            int preEjec = (int) campoDeaths.get(board);
+            metodo.invoke(board);
+            int postEjec = (int) campoDeaths.get(board);
+
+            assertEquals(postEjec, preEjec+1, "No se actualizan las muertes correctamente");
+        }catch(Exception e){
+            System.out.println("Error al actualizar los aliens");
+        }
+    }
+
+    @Test
+    public void testUShotsCN3(){
+        try{
+            Board board = new Board();
+            Method metodo = Board.class.getDeclaredMethod("update_shots");
+            metodo.setAccessible(true);
+
+            Field campoDeaths = Board.class.getDeclaredField("deaths");
+            campoDeaths.setAccessible(true);
+
+            Field shot = Board.class.getDeclaredField("shot");
+            //Vaciamos la lista de aliens para comprobar qué ocurre si un shot no toca un alien
+            Field aliens = Board.class.getDeclaredField("aliens");
+            aliens.setAccessible(true);
+            List<Alien> listaAliens =(List<Alien>)  aliens.get(board);
+            listaAliens.clear();
+
+            //Hay que probar que llega al limite
+            metodo.invoke(board);
+
+            //assertEquals(preEjec, postEjec, "Se han eliminado aliens aunque no se haya alcanzado ninguno");
+
+        }catch(Exception e){
+            System.out.println("Error al actualizar los aliens");
+        }
+    }
 }
 
 
