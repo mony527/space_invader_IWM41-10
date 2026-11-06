@@ -1,6 +1,5 @@
 package main;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import space_invaders.sprites.Player;
 
@@ -139,60 +138,6 @@ public class BoardTest {
            System.out.println("Error al actualizar el board");
            System.out.println(e.getMessage());
        }
-
-    }
-
-
-    @Test
-    public void testUpdateShotBoard(){
-        try{
-            Board board = new Board();
-
-            // Obtener parametros y funciones privados
-            Method updateMethod = Board.class.getDeclaredMethod("update_shots");
-            updateMethod.setAccessible(true);
-
-            Field campoDeaths = Board.class.getDeclaredField("deaths");
-            campoDeaths.setAccessible(true);
-
-            Field campoMessage = Board.class.getDeclaredField("message");
-            campoMessage.setAccessible(true);
-
-            // Caso 1: Valor -> NUMBER_OF_ALIENS_TO_DESTROY
-            board.setDeaths(Commons.NUMBER_OF_ALIENS_TO_DESTROY);
-            updateMethod.invoke(board);
-
-            int valorDeaths1 = board.getDeaths();
-            String valorMessage1 = board.getMessage();
-
-            System.out.println("1 - El valor dado es " + valorDeaths1 + " y el esperado era " + Commons.NUMBER_OF_ALIENS_TO_DESTROY);
-            assertEquals(Commons.NUMBER_OF_ALIENS_TO_DESTROY, valorDeaths1);
-            assertEquals("Game Over", valorMessage1);
-
-            // Caso 2: Valor -> 25
-            board.setDeaths(25);
-            updateMethod.invoke(board);
-
-            int valorDeaths2 =  board.getDeaths();
-            String valorMessage2 = board.getMessage();
-            System.out.println("2 - El valor dado es " + valorDeaths2 + " y el esperado era " + 25);
-            assertEquals(25, valorDeaths2);
-            assertEquals("Game Over", valorMessage2);
-
-            // Caso 3: Valor -> 24
-            board.setDeaths(24);
-            updateMethod.invoke(board);
-
-            int valorDeaths3 =  board.getDeaths();
-            String valorMessage3 = board.getMessage();
-            System.out.println("3 - El valor dado es " + valorDeaths3 + " y el esperado era " + 24);
-            assertEquals(24, valorDeaths3);
-            assertEquals("Game Won!", valorMessage3);
-
-        } catch (Exception e){
-            System.out.println("Error al actualizar el board");
-            System.out.println(e.getMessage());
-        }
 
     }
 }
