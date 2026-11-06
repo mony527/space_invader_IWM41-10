@@ -221,6 +221,26 @@ public class BoardTest {
             System.out.println("Error al actualizar los aliens");
         }
     }
+
+    @Test
+    public void testUAlienCN1(){
+
+    }
+
+    @Test
+    public void testUAlienCN2(){
+
+    }
+
+    @Test
+    public void testUAlienCN3(){
+
+    }
+
+    @Test
+    public void testUAlienCN4(){
+
+    }
 }
 
 
