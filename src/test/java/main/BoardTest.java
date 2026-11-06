@@ -214,9 +214,9 @@ public class BoardTest {
 
             //Hay que probar que llega al limite
             metodo.invoke(board);
-
-            //assertEquals(preEjec, postEjec, "Se han eliminado aliens aunque no se haya alcanzado ninguno");
-
+            int fin = ((int) shot.get("y")) + (int) shot.get("V_SPACE");
+            //Su posición en el eje Y deberá acabar siendo 0
+            assertEquals(fin,0, "El shot no se ha eliminado en la posición correcta");
         }catch(Exception e){
             System.out.println("Error al actualizar los aliens");
         }
