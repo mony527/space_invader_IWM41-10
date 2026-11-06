@@ -59,133 +59,144 @@ public class PlayerTest {
     }
 
     @Test
-    public void testCajaNegraKeyPressed() {
+    public void testCajaNegraKeyPressed() throws NoSuchFieldException, IllegalAccessException {
         Component source = new Button();
-        List<Integer> validos = List.of(37,39);
+        Player p = new Player();
 
-        KeyEvent eventIzquierda = new KeyEvent(
-                source,
-                KeyEvent.KEY_PRESSED,
-                System.currentTimeMillis(),
-                0,
-                KeyEvent.VK_LEFT,
-                KeyEvent.CHAR_UNDEFINED
-        );
-        int keyCode = eventIzquierda.getKeyCode();
-        String nombreTecla = KeyEvent.getKeyText(keyCode);
+        try {
+            int dxExpected = -2;
+            KeyEvent eventIzquierda = new KeyEvent(
+                    source,
+                    KeyEvent.KEY_PRESSED,
+                    System.currentTimeMillis(),
+                    0,
+                    KeyEvent.VK_LEFT,
+                    KeyEvent.CHAR_UNDEFINED
+            );
+            p.keyPressed(eventIzquierda);
 
-        assertTrue(validos.contains(keyCode),
-                "Error: La tecla '" + nombreTecla + "' no es una tecla valida, pulse derecha o izquierda. ");
+            Field valDx = Sprite.class.getDeclaredField("dx");
+            valDx.setAccessible(true);
+            int valorDx = (int) valDx.get(p);
 
-        KeyEvent eventDerecha = new KeyEvent(
-                source,
-                KeyEvent.KEY_PRESSED,
-                System.currentTimeMillis(),
-                0,
-                KeyEvent.VK_RIGHT,
-                KeyEvent.CHAR_UNDEFINED
-        );
-        keyCode = eventDerecha.getKeyCode();
-        nombreTecla = KeyEvent.getKeyText(keyCode);
-
-        assertTrue(validos.contains(keyCode),
-                "Error: La tecla '" + nombreTecla + "' no es una tecla valida, pulse derecha o izquierda. ");
-
-        KeyEvent eventArriba = new KeyEvent(
-                source,
-                KeyEvent.KEY_PRESSED,
-                System.currentTimeMillis(),
-                0,
-                KeyEvent.VK_UP,
-                KeyEvent.CHAR_UNDEFINED
-        );
-
-        keyCode = eventArriba.getKeyCode();
-        nombreTecla = KeyEvent.getKeyText(keyCode);
-
-        assertFalse(validos.contains(keyCode),
-                "Error: La tecla '" + nombreTecla + "' no es una tecla valida, pulse derecha o izquierda. ");
+            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            p.keyReleased(eventIzquierda);
 
 
-        KeyEvent eventEspacio = new KeyEvent(
-                source,
-                KeyEvent.KEY_PRESSED,
-                System.currentTimeMillis(),
-                0,
-                KeyEvent.VK_SPACE,
-                KeyEvent.CHAR_UNDEFINED
-        );
+            dxExpected = 2;
+            KeyEvent eventDerecha = new KeyEvent(
+                    source,
+                    KeyEvent.KEY_PRESSED,
+                    System.currentTimeMillis(),
+                    0,
+                    KeyEvent.VK_RIGHT,
+                    KeyEvent.CHAR_UNDEFINED
+            );
+            p.keyPressed(eventDerecha);
 
-        keyCode = eventEspacio.getKeyCode();
-        nombreTecla = KeyEvent.getKeyText(keyCode);
-        assertFalse(validos.contains(keyCode),
-                "Error: La tecla con codigo'" + nombreTecla + "' no es una tecla valida, pulse derecha o izquierda. ");
+            valDx = Sprite.class.getDeclaredField("dx");
+            valDx.setAccessible(true);
+            valorDx = (int) valDx.get(p);
+
+            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            p.keyReleased(eventDerecha);
+
+
+            dxExpected = 0;
+            KeyEvent eventKeyIncorrect = new KeyEvent(
+                    source,
+                    KeyEvent.KEY_PRESSED,
+                    System.currentTimeMillis(),
+                    0,
+                    KeyEvent.VK_SPACE,
+                    KeyEvent.CHAR_UNDEFINED
+            );
+            p.keyPressed(eventKeyIncorrect);
+
+            valDx = Sprite.class.getDeclaredField("dx");
+            valDx.setAccessible(true);
+            valorDx = (int) valDx.get(p);
+
+            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            p.keyReleased(eventKeyIncorrect);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 
     @Test
     public void testCajaNegrakeyReleased() {
         Component source = new Button();
-        List<Integer> validos = List.of(37,39);
+        Player p = new Player();
 
-        KeyEvent eventIzquierda = new KeyEvent(
-                source,
-                KeyEvent.KEY_RELEASED,
-                System.currentTimeMillis(),
-                0,
-                KeyEvent.VK_LEFT,
-                KeyEvent.CHAR_UNDEFINED
-        );
-        int keyCode = eventIzquierda.getKeyCode();
-        String nombreTecla = KeyEvent.getKeyText(keyCode);
+        try {
+            int dxExpected = 2;
+            KeyEvent eventIzquierda = new KeyEvent(
+                    source,
+                    KeyEvent.KEY_RELEASED,
+                    System.currentTimeMillis(),
+                    0,
+                    KeyEvent.VK_LEFT,
+                    KeyEvent.CHAR_UNDEFINED
+            );
+            p.keyReleased(eventIzquierda);
 
-        assertTrue(validos.contains(keyCode),
-                "Error: La tecla '" + nombreTecla + "' no es una tecla valida, solo se permite derecha o izquierda.");
+            Field valDx = Sprite.class.getDeclaredField("dx");
+            valDx.setAccessible(true);
+            int valorDx = (int) valDx.get(p);
 
-        KeyEvent eventDerecha = new KeyEvent(
-                source,
-                KeyEvent.KEY_RELEASED,
-                System.currentTimeMillis(),
-                0,
-                KeyEvent.VK_RIGHT,
-                KeyEvent.CHAR_UNDEFINED
-        );
-        keyCode = eventDerecha.getKeyCode();
-        nombreTecla = KeyEvent.getKeyText(keyCode);
-
-        assertTrue(validos.contains(keyCode),
-                "Error: La tecla '" + nombreTecla + "' no es una tecla valida, solo se permite derecha o izquierda.");
-
-        KeyEvent eventArriba = new KeyEvent(
-                source,
-                KeyEvent.KEY_RELEASED,
-                System.currentTimeMillis(),
-                0,
-                KeyEvent.VK_UP,
-                KeyEvent.CHAR_UNDEFINED
-        );
-
-        keyCode = eventArriba.getKeyCode();
-        nombreTecla = KeyEvent.getKeyText(keyCode);
-
-        assertFalse(validos.contains(keyCode),
-                "Error: La tecla '" + nombreTecla + "' no es una tecla valida, solo se permite derecha o izquierda.");
+            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
 
 
-        KeyEvent eventEspacio = new KeyEvent(
-                source,
-                KeyEvent.KEY_RELEASED,
-                System.currentTimeMillis(),
-                0,
-                KeyEvent.VK_SPACE,
-                KeyEvent.CHAR_UNDEFINED
-        );
+            dxExpected = 0;
+            KeyEvent eventDerecha = new KeyEvent(
+                    source,
+                    KeyEvent.KEY_RELEASED,
+                    System.currentTimeMillis(),
+                    0,
+                    KeyEvent.VK_RIGHT,
+                    KeyEvent.CHAR_UNDEFINED
+            );
+            p.keyReleased(eventDerecha);
 
-        keyCode = eventEspacio.getKeyCode();
-        nombreTecla = KeyEvent.getKeyText(keyCode);
-        assertFalse(validos.contains(keyCode),
-                "Error: La tecla '" + nombreTecla + "' no es una tecla valida, solo se permite derecha o izquierda.");
+            valDx = Sprite.class.getDeclaredField("dx");
+            valDx.setAccessible(true);
+            valorDx = (int) valDx.get(p);
 
+            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+
+
+            dxExpected = 0;
+            KeyEvent eventKeyIncorrect = new KeyEvent(
+                    source,
+                    KeyEvent.KEY_RELEASED,
+                    System.currentTimeMillis(),
+                    0,
+                    KeyEvent.VK_SPACE,
+                    KeyEvent.CHAR_UNDEFINED
+            );
+            p.keyReleased(eventKeyIncorrect);
+
+            valDx = Sprite.class.getDeclaredField("dx");
+            valDx.setAccessible(true);
+            valorDx = (int) valDx.get(p);
+
+            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
