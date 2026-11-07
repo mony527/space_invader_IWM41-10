@@ -42,7 +42,7 @@ public class PlayerTest {
             int valorY = (int) valy.get(player);
 
             int xInicial = Commons.BOARD_WIDTH / 2;
-            int yInicial = Commons.GROUND + 10;
+            int yInicial = Commons.GROUND - 10;
 
             assertEquals(xInicial, valorX, "La posición X no es la mitad del ancho del tablero");
             assertEquals(yInicial, valorY, "La posición Y no está 10px sobre el suelo del tablero");
