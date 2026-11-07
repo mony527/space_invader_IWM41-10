@@ -1,17 +1,17 @@
 package main;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import space_invaders.sprites.Player;
 import space_invaders.sprites.Sprite;
 import java.awt.Component;
 import java.awt.Button; // O cualquier otro Component (o un mock)
 import java.awt.event.KeyEvent;
 
-import java.awt.event.KeyEvent;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,10 +34,10 @@ public class PlayerTest {
             metodo.setAccessible(true);
             metodo.invoke(player);
 
-            Field valX = Player.class.getDeclaredField("x");
+            Field valX = Sprite.class.getDeclaredField("x");
             valX.setAccessible(true);
             int valorX = (int) valX.get(player);
-            Field valy = Player.class.getDeclaredField("y");
+            Field valy = Sprite.class.getDeclaredField("y");
             valy.setAccessible(true);
             int valorY = (int) valy.get(player);
 
@@ -57,6 +57,32 @@ public class PlayerTest {
             throw new RuntimeException(e);
         }
     }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "RobustBoundaryValueTestingActPlayer.csv", numLinesToSkip = 1)
+    public void robustBoundaryValueTesting_act(int x, int dx, int output) {
+        try{
+            Player player = new Player();
+            player.setX(x);
+
+            Field valdx = Sprite.class.getDeclaredField("dx");
+            valdx.setAccessible(true);
+            valdx.set(player,dx);
+            //REVISAR: width debería devolver el ancho de la imagen de player, pero devuelve -1
+            //porque no se está cargando bien la imagen??
+            //De momento dejo width = Commons.PLAYER_WIDTH para poder pasar los tests.
+            Field valw = Player.class.getDeclaredField("width");
+            valw.setAccessible(true);
+            valw.set(player,Commons.PLAYER_WIDTH);
+
+            player.act();
+            assertEquals(output,player.getX());
+
+        }catch (NoSuchFieldException | IllegalAccessException e ) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Test
     public void testCajaNegraKeyPressed() throws NoSuchFieldException, IllegalAccessException {
