@@ -224,12 +224,50 @@ public class BoardTest {
 
     @Test
     public void testUAlienCN1(){
+        try{
+            Board board = new Board();
+            Method metodo = Board.class.getDeclaredMethod("update_aliens");
+            metodo.setAccessible(true);
+            Field aliens = Board.class.getDeclaredField("aliens");
+            aliens.setAccessible(true);
+            List<Alien> listaAliens =(List<Alien>) aliens.get(board);
 
+            listaAliens.get(0).setX(0);
+            int y = listaAliens.get(0).getY();
+            metodo.invoke(board);
+
+            boolean baja = true;
+
+            for (Alien alien : listaAliens) {
+                if (alien.getY() != y+15) {
+                    baja = false;
+                    break;
+                }
+            }
+            assertEquals(baja,true, "Los aliens no descendieron");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
     public void testUAlienCN2(){
+        try{
+            Board board = new Board();
+            Method metodo = Board.class.getDeclaredMethod("update_aliens");
+            metodo.setAccessible(true);
+            Field aliens = Board.class.getDeclaredField("aliens");
+            aliens.setAccessible(true);
+            List<Alien> listaAliens =(List<Alien>)  aliens.get(board);
 
+            metodo.invoke(board);
+            for (Alien alien : listaAliens) {
+                assertEquals(alien.getX(),0,"Los aliens no descendieron");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
