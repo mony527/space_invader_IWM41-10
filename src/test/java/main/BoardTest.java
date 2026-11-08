@@ -232,8 +232,10 @@ public class BoardTest {
             aliens.setAccessible(true);
             List<Alien> listaAliens =(List<Alien>) aliens.get(board);
 
-            listaAliens.get(0).setX(0);
+            listaAliens.get(0).setX(0+Commons.ALIEN_WIDTH);
             int y = listaAliens.get(0).getY();
+
+            int direccion = board.getDirection();
             metodo.invoke(board);
 
             boolean baja = true;
@@ -244,7 +246,8 @@ public class BoardTest {
                     break;
                 }
             }
-            assertEquals(baja,true, "Los aliens no descendieron");
+            assertEquals(true,baja, "Los aliens no descendieron");
+            assertNotEquals(board.getDirection(), direccion,"La dirección no ha cambiado");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -272,7 +275,32 @@ public class BoardTest {
 
     @Test
     public void testUAlienCN3(){
+        try{
+            Board board = new Board();
+            Method metodo = Board.class.getDeclaredMethod("update_aliens");
+            metodo.setAccessible(true);
+            Field aliens = Board.class.getDeclaredField("aliens");
+            aliens.setAccessible(true);
+            List<Alien> listaAliens =(List<Alien>) aliens.get(board);
 
+            listaAliens.get(0).setX(Commons.BOARD_WIDTH-Commons.ALIEN_WIDTH);
+            int y = listaAliens.get(0).getY();
+
+            int direccion = board.getDirection();
+            metodo.invoke(board);
+            boolean baja = true;
+            for (Alien alien : listaAliens) {
+                if (alien.getY() != y+15) {
+                    baja = false;
+                    break;
+                }
+            }
+            assertEquals(true,baja, "Los aliens no descendieron");
+            assertNotEquals(board.getDirection(), direccion, "La dirección no ha cambiado");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Test
