@@ -324,7 +324,22 @@ public class BoardTest {
 
     @Test
     public void testUAlienCN4(){
+        try{
+            Board board = new Board();
+            Method metodo = Board.class.getDeclaredMethod("update_aliens");
+            metodo.setAccessible(true);
+            Field aliens = Board.class.getDeclaredField("aliens");
+            aliens.setAccessible(true);
+            List<Alien> listaAliens =(List<Alien>) aliens.get(board);
 
+            listaAliens.get(0).setY(Commons.GROUND-Commons.ALIEN_HEIGHT);
+
+            metodo.invoke(board);
+            String mensaje = board.getMessage();
+            assertEquals("Invasion!",mensaje, "El juego no acaba");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
 
