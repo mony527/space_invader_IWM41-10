@@ -307,6 +307,114 @@ public class BoardTest {
     public void testUAlienCN4(){
 
     }
+
+    // Test id: UBombCN1
+    @Test
+    public void decisionTableTesting_updateBomb1(){
+        int numAleatorio = Commons.CHANCE;
+        Board board = new Board();
+        Method metodo = null;
+        Field aliens = null;
+        List<Alien> listaAliens = null;
+        try {
+            metodo = Board.class.getDeclaredMethod("update_bomb");
+            metodo.setAccessible(true);
+            aliens = Board.class.getDeclaredField("aliens");
+            aliens.setAccessible(true);
+            listaAliens =(List<Alien>) aliens.get(board);
+
+
+
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Test id: UBombCN2
+    @Test
+    public void decisionTableTesting_updateBomb2(){
+        Board board = new Board();
+        Method metodo = null;
+        Field fieldAliens = null;
+        Field fieldPlayer = null;
+        List<Alien> listaAliens = null;
+        Player player = null;
+        Alien alien = null;
+        Alien.Bomb bomb = null;
+        try {
+            metodo = Board.class.getDeclaredMethod("update_bomb");
+            metodo.setAccessible(true);
+            fieldAliens = Board.class.getDeclaredField("aliens");
+            fieldAliens.setAccessible(true);
+            listaAliens =(List<Alien>) fieldAliens.get(board);
+            fieldPlayer = Board.class.getDeclaredField("player");
+            fieldPlayer.setAccessible(true);
+            player = (Player) fieldPlayer.get(board);
+
+            alien = listaAliens.get(0);
+            int x = player.getX()-4;
+            int y = player.getY()-Commons.BOMB_HEIGHT-4;
+            bomb = alien.getBomb();
+            bomb.setDestroyed(false);
+            bomb.setX(x);
+            bomb.setY(y);
+
+            metodo.invoke(board);
+
+            assertEquals(y + Commons.BOMB_SPEED, bomb.getY(), "Bomb.getY() should be "+ (player.getY()-Commons.BOMB_HEIGHT-4 + Commons.BOMB_SPEED));
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Test id: UBombCN3
+    @Test
+    public void decisionTableTesting_updateBomb3(){
+        Board board = new Board();
+        Method metodo = null;
+        Field fieldAliens = null;
+        Field fieldPlayer = null;
+        List<Alien> listaAliens = null;
+        Player player = null;
+        Alien alien = null;
+        Alien.Bomb bomb = null;
+        try {
+            metodo = Board.class.getDeclaredMethod("update_bomb");
+            metodo.setAccessible(true);
+            fieldAliens = Board.class.getDeclaredField("aliens");
+            fieldAliens.setAccessible(true);
+            listaAliens =(List<Alien>) fieldAliens.get(board);
+            fieldPlayer = Board.class.getDeclaredField("player");
+            fieldPlayer.setAccessible(true);
+            player = (Player) fieldPlayer.get(board);
+
+            alien = listaAliens.get(0);
+            bomb = alien.new Bomb(player.getX(),player.getY()-Commons.BOMB_HEIGHT); //Con colision con jugador
+
+            metodo.invoke(board);
+
+            assertTrue(bomb.isDestroyed(), "Bomb should be destroyed after collision");
+            assertTrue(player.isDying(), "Player should die after colliding with the bomb");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Test id: UBombCN4
+    @Test
+    public void decisionTableTesting_updateBomb4(){
+
+    }
+
+    // Test id: UBombCN5
+    @Test
+    public void decisionTableTesting_updateBomb5(){
+        int numAleatorio = Commons.CHANCE+2;
+
+    }
 }
 
 
