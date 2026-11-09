@@ -264,10 +264,29 @@ public class BoardTest {
             aliens.setAccessible(true);
             List<Alien> listaAliens =(List<Alien>)  aliens.get(board);
 
-            metodo.invoke(board);
-            for (Alien alien : listaAliens) {
-                assertEquals(alien.getX(),0,"Los aliens no descendieron");
+            int direccion = board.getDirection();
+            int[] pos = new int[listaAliens.size()];
+
+            for(int i=0;i<pos.length;i++){
+                pos[i]=listaAliens.get(i).getX();
             }
+            metodo.invoke(board);
+
+            boolean desplaza = true;
+            if  (direccion == 1){
+                for (int i = 0; i < listaAliens.size(); i++) {
+                    if (pos[i] != listaAliens.get(i).getX()+1) {
+                        desplaza = false;
+                    }
+                }
+            } else {
+                for (int i = 0; i < listaAliens.size(); i++) {
+                    if (pos[i] != listaAliens.get(i).getX()-1) {
+                        desplaza = false;
+                    }
+                }
+            }
+            assertEquals(true,desplaza, "Los aliens no se desplazaron correctamente");
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -305,7 +324,22 @@ public class BoardTest {
 
     @Test
     public void testUAlienCN4(){
+        try{
+            Board board = new Board();
+            Method metodo = Board.class.getDeclaredMethod("update_aliens");
+            metodo.setAccessible(true);
+            Field aliens = Board.class.getDeclaredField("aliens");
+            aliens.setAccessible(true);
+            List<Alien> listaAliens =(List<Alien>) aliens.get(board);
 
+            listaAliens.get(0).setY(Commons.GROUND-Commons.ALIEN_HEIGHT);
+
+            metodo.invoke(board);
+            String mensaje = board.getMessage();
+            assertEquals("Invasion!",mensaje, "El juego no acaba");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     // Test id: UBombCN1
