@@ -264,10 +264,29 @@ public class BoardTest {
             aliens.setAccessible(true);
             List<Alien> listaAliens =(List<Alien>)  aliens.get(board);
 
-            metodo.invoke(board);
-            for (Alien alien : listaAliens) {
-                assertEquals(alien.getX(),0,"Los aliens no descendieron");
+            int direccion = board.getDirection();
+            int[] pos = new int[listaAliens.size()];
+
+            for(int i=0;i<pos.length;i++){
+                pos[i]=listaAliens.get(i).getX();
             }
+            metodo.invoke(board);
+
+            boolean desplaza = true;
+            if  (direccion == 1){
+                for (int i = 0; i < listaAliens.size(); i++) {
+                    if (pos[i] != listaAliens.get(i).getX()+1) {
+                        desplaza = false;
+                    }
+                }
+            } else {
+                for (int i = 0; i < listaAliens.size(); i++) {
+                    if (pos[i] != listaAliens.get(i).getX()-1) {
+                        desplaza = false;
+                    }
+                }
+            }
+            assertEquals(true,desplaza, "Los aliens no se desplazaron correctamente");
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
