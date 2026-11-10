@@ -1,10 +1,9 @@
-package main;
+package main.cajaNegra;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import space_invaders.sprites.Alien;
-import space_invaders.sprites.Sprite;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

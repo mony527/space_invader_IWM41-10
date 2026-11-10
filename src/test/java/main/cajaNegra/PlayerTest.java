@@ -1,5 +1,6 @@
-package main;
+package main.cajaNegra;
 
+import main.Commons;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -125,8 +126,8 @@ public class PlayerTest {
             valDx.setAccessible(true);
             valorDx = (int) valDx.get(p);
 
-            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
-            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            assertEquals(dxExpected, valorDx, "El esperado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El esperado: " + dxExpected + " y el dado es: " + valorDx);
             p.keyReleased(eventDerecha);
 
 
@@ -145,8 +146,8 @@ public class PlayerTest {
             valDx.setAccessible(true);
             valorDx = (int) valDx.get(p);
 
-            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
-            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            assertEquals(dxExpected, valorDx, "El esperado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El esperado: " + dxExpected + " y el dado es: " + valorDx);
             p.keyReleased(eventKeyIncorrect);
 
 
@@ -178,8 +179,8 @@ public class PlayerTest {
             valDx.setAccessible(true);
             int valorDx = (int) valDx.get(p);
 
-            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
-            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            assertEquals(dxExpected, valorDx, "El esperado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El esperado: " + dxExpected + " y el dado es: " + valorDx);
 
 
             dxExpected = 0;
@@ -197,8 +198,8 @@ public class PlayerTest {
             valDx.setAccessible(true);
             valorDx = (int) valDx.get(p);
 
-            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
-            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            assertEquals(dxExpected, valorDx, "El esperado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El esperado: " + dxExpected + " y el dado es: " + valorDx);
 
 
             dxExpected = 0;
@@ -216,8 +217,8 @@ public class PlayerTest {
             valDx.setAccessible(true);
             valorDx = (int) valDx.get(p);
 
-            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
-            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            assertEquals(dxExpected, valorDx, "El esperado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El esperado: " + dxExpected + " y el dado es: " + valorDx);
 
 
         } catch (Exception e) {

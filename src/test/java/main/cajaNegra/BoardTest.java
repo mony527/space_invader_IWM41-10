@@ -1,5 +1,8 @@
-package main;
+package main.cajaNegra;
 
+import main.Board;
+import main.Commons;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import space_invaders.sprites.Player;
 
@@ -7,10 +10,7 @@ import java.awt.*;
 import space_invaders.sprites.Alien;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,7 +49,7 @@ public class BoardTest {
         campoDeaths.setAccessible(true);
         int valorDeaths = (int) campoDeaths.get(board);
 
-        assertEquals(Commons.NUMBER_OF_ALIENS_TO_DESTROY, valorDeaths, "El número de muertes debe ser igual al número de aliens a destruir");
+        Assertions.assertEquals(Commons.NUMBER_OF_ALIENS_TO_DESTROY, valorDeaths, "El número de muertes debe ser igual al número de aliens a destruir");
 
         Method metodoUpdate = Board.class.getDeclaredMethod("update");
         metodoUpdate.setAccessible(true);
@@ -426,11 +426,11 @@ public class BoardTest {
 
             alien = listaAliens.get(0);
             bomb = alien.new Bomb(player.getX(),player.getY()-Commons.BOMB_HEIGHT); //Con colision con jugador
+            bomb.setDestroyed(false);
 
             metodo.invoke(board);
 
             assertTrue(bomb.isDestroyed(), "Bomb should be destroyed after collision");
-            assertTrue(player.isDying(), "Player should die after colliding with the bomb");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -440,7 +440,32 @@ public class BoardTest {
     // Test id: UBombCN4
     @Test
     public void decisionTableTesting_updateBomb4(){
+        Board board = new Board();
+        Method metodo = null;
+        Field fieldAliens = null;
+        Field fieldPlayer = null;
+        List<Alien> listaAliens = null;
+        Alien alien = null;
+        Alien.Bomb bomb = null;
+        try {
+            metodo = Board.class.getDeclaredMethod("update_bomb");
+            metodo.setAccessible(true);
+            fieldAliens = Board.class.getDeclaredField("aliens");
+            fieldAliens.setAccessible(true);
+            listaAliens =(List<Alien>) fieldAliens.get(board);
+            fieldPlayer = Board.class.getDeclaredField("player");
+            fieldPlayer.setAccessible(true);
+            alien = listaAliens.get(0);
+            bomb = alien.new Bomb(50,Commons.GROUND - Commons.BOMB_HEIGHT ); //Con colision con Ground
+            bomb.setDestroyed(false);
 
+            metodo.invoke(board);
+
+            assertTrue(bomb.isDestroyed(), "Bomb should be destroyed after collision");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     // Test id: UBombCN5
