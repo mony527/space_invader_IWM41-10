@@ -40,7 +40,7 @@ public class AlienTest {
             Field valy = Sprite.class.getDeclaredField("y");
             valy.setAccessible(true);
             int y = (int) valy.get(alien);
-
+            //CORREGIDO
             assertEquals(outX, x, "Alien x should be " + outX + ". Actual y is: "+ y);
             assertEquals(outY, y, "Alien y should be " + outY + ". Actual x is: "+ x);
         }catch (Exception e){
