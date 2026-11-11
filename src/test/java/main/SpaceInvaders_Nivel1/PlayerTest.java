@@ -102,8 +102,8 @@ public class PlayerTest {
             valDx.setAccessible(true);
             int valorDx = (int) valDx.get(p);
 
-            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
-            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            assertEquals(dxExpected, valorDx, "El esperado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El esperado: " + dxExpected + " y el dado es: " + valorDx);
             p.keyReleased(eventIzquierda);
 
         } catch (Exception e) {
@@ -133,8 +133,8 @@ public class PlayerTest {
             valDx.setAccessible(true);
             int valorDx = (int) valDx.get(p);
 
-            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
-            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            assertEquals(dxExpected, valorDx, "El esperado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El esperado: " + dxExpected + " y el dado es: " + valorDx);
             p.keyReleased(eventDerecha);
 
 
@@ -147,12 +147,15 @@ public class PlayerTest {
 
     }
     @Test
-    public void testCajaNegraKeyPressed3() throws NoSuchFieldException, IllegalAccessException {
+    public void testCajaNegraKeyPressed3(){
         Component source = new Button();
         Player p = new Player();
 
         try {
-            int dxExpected = 0;
+            Field valDx = Sprite.class.getDeclaredField("dx");
+            valDx.setAccessible(true);
+            int dxExpected = (int) valDx.get(p);
+
             KeyEvent eventKeyIncorrect = new KeyEvent(
                     source,
                     KeyEvent.KEY_PRESSED,
@@ -163,12 +166,10 @@ public class PlayerTest {
             );
             p.keyPressed(eventKeyIncorrect);
 
-            Field valDx = Sprite.class.getDeclaredField("dx");
-            valDx.setAccessible(true);
             int valorDx = (int) valDx.get(p);
 
-            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
-            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            assertEquals(dxExpected, valorDx, "El esperado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El esperado: " + dxExpected + " y el dado es: " + valorDx);
             p.keyReleased(eventKeyIncorrect);
 
 
@@ -179,7 +180,7 @@ public class PlayerTest {
 
     }
     @Test
-    public void testCajaNegrakeyReleased1() throws NoSuchFieldException, IllegalAccessException {
+    public void testCajaNegrakeyReleased1(){
         Component source = new Button();
         Player p = new Player();
 
@@ -199,15 +200,15 @@ public class PlayerTest {
             valDx.setAccessible(true);
             int valorDx = (int) valDx.get(p);
 
-            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
-            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            assertEquals(dxExpected, valorDx, "El esperado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El esperado: " + dxExpected + " y el dado es: " + valorDx);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     @Test
-    public void testCajaNegrakeyReleased2() throws NoSuchFieldException, IllegalAccessException{
+    public void testCajaNegrakeyReleased2(){
         Component source = new Button();
         Player p = new Player();
 
@@ -227,20 +228,22 @@ public class PlayerTest {
             valDx.setAccessible(true);
             int valorDx = (int) valDx.get(p);
 
-            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
-            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            assertEquals(dxExpected, valorDx, "El esperado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El esperado: " + dxExpected + " y el dado es: " + valorDx);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     @Test
-    public void testCajaNegrakeyReleased3() throws NoSuchFieldException, IllegalAccessException{
+    public void testCajaNegrakeyReleased3(){
         Component source = new Button();
         Player p = new Player();
 
         try {
-            int dxExpected = 0;
+            Field valDx = Sprite.class.getDeclaredField("dx");
+            valDx.setAccessible(true);
+            int dxExpected = (int) valDx.get(p);
             KeyEvent eventKeyIncorrect = new KeyEvent(
                     source,
                     KeyEvent.KEY_RELEASED,
@@ -251,12 +254,10 @@ public class PlayerTest {
             );
             p.keyReleased(eventKeyIncorrect);
 
-            Field valDx = Sprite.class.getDeclaredField("dx");
-            valDx.setAccessible(true);
             int valorDx = (int) valDx.get(p);
 
-            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
-            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+            assertEquals(dxExpected, valorDx, "El esperado: " + dxExpected + " y el dado es: " + valorDx);
+            System.out.println("El esperado: " + dxExpected + " y el dado es: " + valorDx);
 
 
         } catch (Exception e) {
