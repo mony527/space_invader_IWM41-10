@@ -1,4 +1,4 @@
-package main;
+package main.SpaceInvaders_Nivel1;
 
 import org.junit.jupiter.api.Test;
 import space_invaders.sprites.Player;
