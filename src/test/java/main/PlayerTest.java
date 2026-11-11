@@ -1,5 +1,6 @@
 package main;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import space_invaders.sprites.Player;
 import space_invaders.sprites.Sprite;
@@ -24,6 +25,12 @@ public class PlayerTest {
         Player player = new Player();
         assertNotNull(player, "Player should be created succesfully");
 
+    }
+
+    @BeforeEach
+    public void setUp() {
+        Component source = new Button();
+        Player p = new Player();
     }
     //public initPlayer --> casos especiales (si esta en las coordenadas iniciales)
     @Test
@@ -59,7 +66,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testCajaNegraKeyPressed() throws NoSuchFieldException, IllegalAccessException {
+    public void testCajaNegraKeyPressed1() throws NoSuchFieldException, IllegalAccessException {
         Component source = new Button();
         Player p = new Player();
 
@@ -83,9 +90,19 @@ public class PlayerTest {
             System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
             p.keyReleased(eventIzquierda);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            dxExpected = 2;
-            KeyEvent eventDerecha = new KeyEvent(
+
+    }
+    @Test
+    public void testCajaNegraKeyPressed2() throws NoSuchFieldException, IllegalAccessException {
+        Component source = new Button();
+        Player p = new Player();
+        try{
+            int dxExpected = 2;
+            KeyEvent eventKeyIncorrect = new KeyEvent(
                     source,
                     KeyEvent.KEY_PRESSED,
                     System.currentTimeMillis(),
@@ -93,46 +110,46 @@ public class PlayerTest {
                     KeyEvent.VK_RIGHT,
                     KeyEvent.CHAR_UNDEFINED
             );
-            p.keyPressed(eventDerecha);
-
-            valDx = Sprite.class.getDeclaredField("dx");
-            valDx.setAccessible(true);
-            valorDx = (int) valDx.get(p);
-
-            assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
-            System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
-            p.keyReleased(eventDerecha);
-
-
-            dxExpected = 0;
-            KeyEvent eventKeyIncorrect = new KeyEvent(
-                    source,
-                    KeyEvent.KEY_PRESSED,
-                    System.currentTimeMillis(),
-                    0,
-                    KeyEvent.VK_SPACE,
-                    KeyEvent.CHAR_UNDEFINED
-            );
             p.keyPressed(eventKeyIncorrect);
 
-            valDx = Sprite.class.getDeclaredField("dx");
+            Field valDx = Sprite.class.getDeclaredField("dx");
             valDx.setAccessible(true);
-            valorDx = (int) valDx.get(p);
+            int valorDx = (int) valDx.get(p);
 
             assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
             System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
             p.keyReleased(eventKeyIncorrect);
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    @Test
+    public void testCajaNegraKeyPressed3() throws NoSuchFieldException, IllegalAccessException {
+        Component source = new Button();
+        Player p = new Player();
+        int dxExpected = 0;
+        KeyEvent eventKeyIncorrect = new KeyEvent(
+                source,
+                KeyEvent.KEY_PRESSED,
+                System.currentTimeMillis(),
+                0,
+                KeyEvent.VK_SPACE,
+                KeyEvent.CHAR_UNDEFINED
+        );
+        p.keyPressed(eventKeyIncorrect);
 
+        Field valDx = Sprite.class.getDeclaredField("dx");
+        valDx.setAccessible(true);
+        int valorDx = (int) valDx.get(p);
 
+        assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
+        System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
+        p.keyReleased(eventKeyIncorrect);
     }
 
+
     @Test
-    public void testCajaNegrakeyReleased() {
+    public void testCajaNegrakeyReleased1() {
         Component source = new Button();
         Player p = new Player();
 
@@ -155,8 +172,18 @@ public class PlayerTest {
             assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
             System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void testCajaNegrakeyReleased2() {
+        Component source = new Button();
+        Player p = new Player();
 
-            dxExpected = 0;
+        try {
+
+            int dxExpected = 0;
             KeyEvent eventDerecha = new KeyEvent(
                     source,
                     KeyEvent.KEY_RELEASED,
@@ -167,15 +194,24 @@ public class PlayerTest {
             );
             p.keyReleased(eventDerecha);
 
-            valDx = Sprite.class.getDeclaredField("dx");
+            Field valDx = Sprite.class.getDeclaredField("dx");
             valDx.setAccessible(true);
-            valorDx = (int) valDx.get(p);
+            int valorDx = (int) valDx.get(p);
 
             assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
             System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void testCajaNegrakeyReleased3() {
+        Component source = new Button();
+        Player p = new Player();
 
-            dxExpected = 0;
+        try {
+            int dxExpected = 0;
             KeyEvent eventKeyIncorrect = new KeyEvent(
                     source,
                     KeyEvent.KEY_RELEASED,
@@ -186,9 +222,9 @@ public class PlayerTest {
             );
             p.keyReleased(eventKeyIncorrect);
 
-            valDx = Sprite.class.getDeclaredField("dx");
+            Field valDx = Sprite.class.getDeclaredField("dx");
             valDx.setAccessible(true);
-            valorDx = (int) valDx.get(p);
+            int valorDx = (int) valDx.get(p);
 
             assertEquals(dxExpected, valorDx, "El experado: " + dxExpected + " y el dado es: " + valorDx);
             System.out.println("El experado: " + dxExpected + " y el dado es: " + valorDx);
