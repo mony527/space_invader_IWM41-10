@@ -46,9 +46,9 @@ public class ShotTest {
             m.invoke(shot, x, y);
 
             assertEquals(x + (int) h.get(shot), shot.getX(),
-                    "Shot no inicializado correctamente en el eje X");
+                    "Shot no inicializado correctamente en el eje X, Y es: " + shot.getY());
             assertEquals(y - (int) v.get(shot), shot.getY(),
-                    "Shot no inicializado correctamente en el eje Y");
+                    "Shot no inicializado correctamente en el eje Y, X es: "+ shot.getX());
         }catch (Exception e){
             e.printStackTrace();
         }
