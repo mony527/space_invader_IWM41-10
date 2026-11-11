@@ -57,6 +57,7 @@ public class PlayerTest {
             throw new RuntimeException(e);
         }
     }
+
     @ParameterizedTest
     @CsvFileSource(resources = "RobustBoundaryValueTestingActPlayer.csv", numLinesToSkip = 1)
     public void robustBoundaryValueTesting_act(int x, int dx, int output) {

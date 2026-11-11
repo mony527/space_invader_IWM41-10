@@ -2,12 +2,12 @@ package main.SpaceInvaders_Nivel1;
 
 import main.Board;
 import main.Commons;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import space_invaders.sprites.Player;
 
 import java.awt.*;
 import space_invaders.sprites.Alien;
+import space_invaders.sprites.Shot;
 import space_invaders.sprites.Sprite;
 
 import java.lang.reflect.Field;
@@ -41,29 +41,6 @@ public class BoardTest {
             System.out.println("Error al crear el board");
         }
     }
-    @Test
-    public void PruebaUpdate(){
-        try{
-        Board board = new Board();
-
-        Field campoDeaths = Board.class.getDeclaredField("deaths");
-        campoDeaths.setAccessible(true);
-        campoDeaths.set(board, Commons.NUMBER_OF_ALIENS_TO_DESTROY);
-
-        Method metodoUpdate = Board.class.getDeclaredMethod("update");
-        metodoUpdate.setAccessible(true);
-        metodoUpdate.invoke(board);
-
-        Field campoInGame = Board.class.getDeclaredField("inGame");
-        campoInGame.setAccessible(true);
-        boolean valorInGame = (boolean) campoInGame.get(board);
-        
-        assertFalse(valorInGame, "El juego debe terminar cuando deaths == Commons.NUMBER_OF_ALIENS_TO_DESTROY");
-
-        } catch (Exception e) {
-        }
-    }
-
 
     @Test
     public void testCajaNegraJuegoCreado(){
@@ -88,10 +65,11 @@ public class BoardTest {
                     k++;
                 }
             }
-
+            //Prueba PLayer inicializado
             Field valX = Sprite.class.getDeclaredField("x");
             valX.setAccessible(true);
             int valorX = (int) valX.get(board.getPlayer());
+
             Field valy = Sprite.class.getDeclaredField("y");
             valy.setAccessible(true);
             int valorY = (int) valy.get(board.getPlayer());
@@ -101,6 +79,18 @@ public class BoardTest {
 
             assertEquals(xInicial, valorX, "La posición X no es la mitad del ancho del tablero");
             assertEquals(yInicial, valorY, "La posición Y no está 10px sobre el suelo del tablero");
+            //Prueba shot inicializado
+            Field h = Shot.class.getDeclaredField("H_SPACE");
+            h.setAccessible(true);
+
+            Field v = Shot.class.getDeclaredField("V_SPACE");
+            v.setAccessible(true);
+
+            assertEquals(valorX + (int) h.get(board.getShot()), board.getShot().getX(),
+                    "Shot no inicializado correctamente en el eje X, Y es: " + board.getShot().getY());
+            assertEquals(valorY - (int) v.get(board.getShot()), board.getShot().getY(),
+                    "Shot no inicializado correctamente en el eje Y, X es: "+ board.getShot().getX());
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,56 +98,96 @@ public class BoardTest {
     }
 
     @Test
-    public void testUpdateBoard(){
-       try{
-           Board board = new Board();
+    public void testUpdateBoard1(){
+        try {
+            Board board = new Board();
 
-           // Obtener parametros y funciones privados
-           Method updateMethod = Board.class.getDeclaredMethod("update");
-           updateMethod.setAccessible(true);
+            Method updateMethod = Board.class.getDeclaredMethod("update");
+            updateMethod.setAccessible(true);
 
-           Field campoDeaths = Board.class.getDeclaredField("deaths");
-           campoDeaths.setAccessible(true);
+            Field campoDeaths = Board.class.getDeclaredField("deaths");
+            campoDeaths.setAccessible(true);
 
-           Field campoMessage = Board.class.getDeclaredField("message");
-           campoMessage.setAccessible(true);
+            Field campoMessage = Board.class.getDeclaredField("message");
+            campoMessage.setAccessible(true);
 
-           // Caso 1: Valor -> NUMBER_OF_ALIENS_TO_DESTROY
-           board.setDeaths(Commons.NUMBER_OF_ALIENS_TO_DESTROY);
-           updateMethod.invoke(board);
+            Field campoInGame = Board.class.getDeclaredField("inGame");
+            campoInGame.setAccessible(true);
 
-           int valorDeaths1 = board.getDeaths();
-           String valorMessage1 = board.getMessage();
+            board.setDeaths(Commons.NUMBER_OF_ALIENS_TO_DESTROY);
+            updateMethod.invoke(board);
 
-           System.out.println("1 - El valor dado es " + valorDeaths1 + " y el esperado era " + Commons.NUMBER_OF_ALIENS_TO_DESTROY);
-           assertEquals(Commons.NUMBER_OF_ALIENS_TO_DESTROY, valorDeaths1);
-           assertEquals("Game Over", valorMessage1);
+            String valorMessage1 = board.getMessage();
 
-           // Caso 2: Valor -> 25
-           board.setDeaths(25);
-           updateMethod.invoke(board);
+            assertEquals("Game won!", valorMessage1);
+            assertFalse(board.isInGame());
 
-           int valorDeaths2 =  board.getDeaths();
-           String valorMessage2 = board.getMessage();
-           System.out.println("2 - El valor dado es " + valorDeaths2 + " y el esperado era " + 25);
-           assertEquals(25, valorDeaths2);
-           assertEquals("Game Over", valorMessage2);
 
-           // Caso 3: Valor -> 24
-           board.setDeaths(24);
-           updateMethod.invoke(board);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-           int valorDeaths3 =  board.getDeaths();
-           String valorMessage3 = board.getMessage();
-           System.out.println("3 - El valor dado es " + valorDeaths3 + " y el esperado era " + 24);
-           assertEquals(24, valorDeaths3);
-           assertEquals("Game Won!", valorMessage3);
 
-       } catch (Exception e){
-           System.out.println("Error al actualizar el board");
-           System.out.println(e.getMessage());
-       }
+    @Test
+    public void testUpdateBoard2(){
+        try {
+            Board board = new Board();
 
+            Method updateMethod = Board.class.getDeclaredMethod("update");
+            updateMethod.setAccessible(true);
+            Field campoDeaths = Board.class.getDeclaredField("deaths");
+            campoDeaths.setAccessible(true);
+            Field campoMessage = Board.class.getDeclaredField("message");
+            campoMessage.setAccessible(true);
+            Field campoInGame = Board.class.getDeclaredField("inGame");
+            campoInGame.setAccessible(true);
+            board.setDeaths(0);
+
+            Player player = board.getPlayer();
+            Field valdx = Sprite.class.getDeclaredField("dx");
+            valdx.setAccessible(true);
+            valdx.set(player, 2);
+            int x0 = player.getX();
+
+            Shot shot = board.getShot();
+            int xShot = shot.getX();
+            int yShot = shot.getY();
+
+            List<Alien> listaAliens = board.getAliens();
+            int[] posX = new int[listaAliens.size()];
+            for(int i=0;i<posX.length;i++){
+                posX[i]=listaAliens.get(i).getX();
+            }
+
+            updateMethod.invoke(board);
+
+            String valorMessage1 = board.getMessage();
+
+            assertNotEquals("Game won!", valorMessage1);
+            assertTrue(board.isInGame());
+
+            //Player.act()
+            assertEquals(x0+2, player.getX());
+
+            //update_shots()
+            assertEquals(xShot, shot.getX());
+            assertEquals(yShot-Commons.SHOT_SPEED, shot.getY());
+
+            // update_aliens() y update_bomb()
+            for (int i = 0; i < listaAliens.size(); i++) {
+                assertEquals(posX[i]-1, listaAliens.get(i).getX(),
+                        "El alien número: " +  (i+1) + " no está bien colocado en el eje Y");
+
+                if (!listaAliens.get(i).getBomb().isDestroyed()){
+                    assertEquals(listaAliens.get(i).getX(), listaAliens.get(i).getBomb().getX());
+                    assertEquals(listaAliens.get(i).getY(), listaAliens.get(i).getBomb().getY());
+                }
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
