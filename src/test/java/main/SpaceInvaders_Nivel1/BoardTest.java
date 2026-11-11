@@ -49,11 +49,11 @@ public class BoardTest {
         campoDeaths.setAccessible(true);
         int valorDeaths = (int) campoDeaths.get(board);
 
-        Assertions.assertEquals(Commons.NUMBER_OF_ALIENS_TO_DESTROY, valorDeaths, "El número de muertes debe ser igual al número de aliens a destruir");
-
         Method metodoUpdate = Board.class.getDeclaredMethod("update");
         metodoUpdate.setAccessible(true);
         metodoUpdate.invoke(board);
+
+        Assertions.assertEquals(Commons.NUMBER_OF_ALIENS_TO_DESTROY, valorDeaths, "El número de muertes debe ser igual al número de aliens a destruir");
 
         Field campoInGame = Board.class.getDeclaredField("inGame");
         campoInGame.setAccessible(true);
