@@ -34,10 +34,10 @@ public class PlayerTest {
             metodo.setAccessible(true);
             metodo.invoke(player);
 
-            Field valX = Player.class.getDeclaredField("x");
+            Field valX = Sprite.class.getDeclaredField("x");
             valX.setAccessible(true);
             int valorX = (int) valX.get(player);
-            Field valy = Player.class.getDeclaredField("y");
+            Field valy = Sprite.class.getDeclaredField("y");
             valy.setAccessible(true);
             int valorY = (int) valy.get(player);
 

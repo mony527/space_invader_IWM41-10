@@ -8,6 +8,7 @@ import space_invaders.sprites.Player;
 
 import java.awt.*;
 import space_invaders.sprites.Alien;
+import space_invaders.sprites.Sprite;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -72,6 +73,11 @@ public class BoardTest {
             Field aliens = Board.class.getDeclaredField("aliens");
             aliens.setAccessible(true);
             List<Alien> listaAliens =(List<Alien>)  aliens.get(board);
+
+            Method metodo = Board.class.getDeclaredMethod("gameInit");
+            metodo.setAccessible(true);
+            metodo.invoke(board);
+
             int k = 0;
             for(int j = 0; j < 4; j++) {
                 for (int i = 0; i < 6; i++) {
@@ -82,6 +88,20 @@ public class BoardTest {
                     k++;
                 }
             }
+
+            Field valX = Sprite.class.getDeclaredField("x");
+            valX.setAccessible(true);
+            int valorX = (int) valX.get(board.getPlayer());
+            Field valy = Sprite.class.getDeclaredField("y");
+            valy.setAccessible(true);
+            int valorY = (int) valy.get(board.getPlayer());
+
+            int xInicial = Commons.BOARD_WIDTH / 2;
+            int yInicial = Commons.GROUND + 10;
+
+            assertEquals(xInicial, valorX, "La posición X no es la mitad del ancho del tablero");
+            assertEquals(yInicial, valorY, "La posición Y no está 10px sobre el suelo del tablero");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
