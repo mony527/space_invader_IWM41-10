@@ -1,4 +1,4 @@
-package main.cajaNegra;
+package main.SpaceInvaders_Nivel1;
 
 import main.Board;
 import main.Commons;

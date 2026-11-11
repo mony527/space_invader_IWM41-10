@@ -1,6 +1,5 @@
-package main.cajaBlanca;
+package main.SpaceInvaders_Nivel2;
 
-import main.Commons;
 import org.junit.jupiter.api.Test;
 import space_invaders.sprites.Player;
 import space_invaders.sprites.Sprite;
