@@ -85,6 +85,7 @@ public class BoardTest {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
