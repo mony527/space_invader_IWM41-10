@@ -46,9 +46,9 @@ public class BombTest {
             valy.setAccessible(true);
             int valory = (int) valy.get(bomb);
 
+            assertNotNull(bomb.getImage());
             assertEquals(outX, valorx);
             assertEquals(outY, valory);
-            //assertTrue((valorx == x) && (valory==y));
 
         }catch(NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoSuchFieldException e){
             throw new RuntimeException(e);
