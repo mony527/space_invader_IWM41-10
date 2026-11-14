@@ -25,6 +25,7 @@ public class PlayerTest {
         assertNotNull(player, "Player should be created succesfully");
 
     }
+
     //public initPlayer --> casos especiales (si esta en las coordenadas iniciales)
     @Test
     public void inicializarPlayer() {
@@ -68,9 +69,9 @@ public class PlayerTest {
             Field valdx = Sprite.class.getDeclaredField("dx");
             valdx.setAccessible(true);
             valdx.set(player,dx);
-            //REVISAR: width debería devolver el ancho de la imagen de player, pero devuelve -1
-            //porque no se está cargando bien la imagen??
-            //De momento dejo width = Commons.PLAYER_WIDTH para poder pasar los tests.
+
+            //El JAR da problemas para establecer width así que le asignamos
+            //manualmente el valor Commons.PLAYER_WIDTH
             Field valw = Player.class.getDeclaredField("width");
             valw.setAccessible(true);
             valw.set(player,Commons.PLAYER_WIDTH);
@@ -82,6 +83,7 @@ public class PlayerTest {
             throw new RuntimeException(e);
         }
     }
+
     @Test
     public void testCajaNegraKeyPressed1() throws NoSuchFieldException, IllegalAccessException {
         Component source = new Button();
@@ -113,6 +115,7 @@ public class PlayerTest {
 
 
     }
+
     @Test
     public void testCajaNegraKeyPressed2() throws NoSuchFieldException, IllegalAccessException {
         Component source = new Button();
@@ -147,6 +150,7 @@ public class PlayerTest {
 
 
     }
+
     @Test
     public void testCajaNegraKeyPressed3(){
         Component source = new Button();
@@ -180,6 +184,7 @@ public class PlayerTest {
 
 
     }
+
     @Test
     public void testCajaNegrakeyReleased1(){
         Component source = new Button();
@@ -208,6 +213,7 @@ public class PlayerTest {
             e.printStackTrace();
         }
     }
+
     @Test
     public void testCajaNegrakeyReleased2(){
         Component source = new Button();
@@ -236,6 +242,7 @@ public class PlayerTest {
             e.printStackTrace();
         }
     }
+
     @Test
     public void testCajaNegrakeyReleased3(){
         Component source = new Button();
