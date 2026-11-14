@@ -60,8 +60,8 @@ public class PlayerTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "RobustBoundaryValueTestingActPlayer.csv", numLinesToSkip = 1)
-    public void robustBoundaryValueTesting_act(int x, int dx, int output) {
+    @CsvFileSource(resources = "NormalBoundaryValueTestingActPlayer.csv", numLinesToSkip = 1)
+    public void normalBoundaryValueTesting_act(int x, int dx, int output) {
         try{
             Player player = new Player();
             player.setX(x);
