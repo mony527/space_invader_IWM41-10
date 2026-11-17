@@ -85,7 +85,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testCajaNegraKeyPressed1() throws NoSuchFieldException, IllegalAccessException {
+    public void testCajaNegraKeyPressed1(){
         Component source = new Button();
         Player p = new Player();
 
@@ -191,7 +191,7 @@ public class PlayerTest {
         Player p = new Player();
 
         try {
-            int dxExpected = 2;
+            int dxExpected = 0;
             KeyEvent eventIzquierda = new KeyEvent(
                     source,
                     KeyEvent.KEY_RELEASED,
